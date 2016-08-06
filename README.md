@@ -17,7 +17,7 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 ### Developing
 
-* run  mongod --dbpath "C:\Users\DEOGWorkstation\git\dspe\db" to create the database
+* run  mongod --dbpath "C:\Users\<YOUR USER>\git\dspe\db" to create the database
 
 1. Run `npm install` to install server dependencies.
 
