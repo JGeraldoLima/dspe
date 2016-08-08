@@ -68,7 +68,7 @@ export function index(req, res) {
 
 // Gets a single Thing from the DB
 export function show(req, res) {
-  return Thing.findById(req.params.id).exec()
+  return Thing.find().skip(Number(req.params.id)).limit(1).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
