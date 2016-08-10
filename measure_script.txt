@@ -1,0 +1,7 @@
+POST
+
+http://localhost:9000/api/things
+
+GET
+
+http://localhost:9000/api/things/1

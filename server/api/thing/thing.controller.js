@@ -66,9 +66,10 @@ export function index(req, res) {
     .catch(handleError(res));
 }
 
-// Gets a single Thing from the DB
+// Gets a single random Thing from the DB
 export function show(req, res) {
-  return Thing.find().skip(Number(req.params.id)).limit(1).exec()
+  var skip = Math.floor((Math.random() * 3598) + 1);
+  return Thing.find().skip(skip).limit(1).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -76,7 +77,17 @@ export function show(req, res) {
 
 // Creates a new Thing in the DB
 export function create(req, res) {
-  return Thing.create(req.body)
+  var newThing = {
+    name: "Thing",
+    info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
+    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+    "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+    "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
+    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  };
+
+  return Thing.create(newThing)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
