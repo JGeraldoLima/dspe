@@ -1,7 +1,7 @@
 POST
 
-http://localhost:9000/api/things
+<generated domain>/api/things
 
 GET
 
-http://localhost:9000/api/things/1
+<generated domain>/api/things/1

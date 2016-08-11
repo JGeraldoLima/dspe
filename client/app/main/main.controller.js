@@ -4,10 +4,10 @@
 
   class MainController {
 
-    constructor($http) {
+    constructor($http, toaster) {
       this.$http = $http;
+      this.toaster = toaster;
       this.awesomeThings = [];
-      this.insertCounter = 0;
     }
 
     $onInit() {
@@ -16,6 +16,10 @@
           this.awesomeThings = response.data;
         });
     }
+
+    showToast(type, title, text){
+      this.toaster.pop(type, title, text);
+    };
 
     sendRequest() {
       if(this.requestCode === 0){
@@ -26,17 +30,28 @@
 
     }
 
-    //get random document from mongodc
     getThing() {
       this.$http.get('/api/things/1').then(response => {
-        console.log(response.data); // change to a toast
-        return response.data;
+        var data = response.data;
+
+        if(data){
+          this.showToast('success', "Thing", "Thing returned successfully");
+        } else {
+          this.showToast('error', "Thing", "It occurred an internal error");
+        }
+        return data;
       })
     }
 
-    //add random thing based on insertCount
     addThing() {
-      this.$http.post('/api/things', {});
+      this.$http.post('/api/things', {}).then(response => {
+        var type = 'error';
+        if(response.status === 200 || response.status === 201){
+          type = 'success'
+        }
+
+        this.showToast(type, "Thing", response.statusText);
+      });
     }
 
     deleteThing(thing) {
